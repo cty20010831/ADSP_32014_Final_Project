@@ -1,0 +1,69 @@
+# 🧠 Bayesian Multimodal Fusion for Depression Detection
+
+![Depression Detection](https://upload.wikimedia.org/wikipedia/commons/8/84/Mental_health_awareness.png)
+
+## 📖 Abstract
+Early and accurate detection of Major Depressive Disorder (MDD) can significantly improve treatment outcomes. This study proposes a **Bayesian multimodal fusion framework** that integrates **speech embeddings from Wav2Vec 2.0** with **EEG-based neural activity features** to enhance depression classification. 
+
+We leverage **Bayesian Neural Networks (BNNs)**, **Bayesian Gaussian Processes (GPs)**, and **Hidden Markov Models (HMMs)** to quantify uncertainty in predictions, making our approach robust for **clinical decision-making**.
+
+---
+
+## 🏗️ **Methodology**
+Our **hybrid fusion model** integrates **multi-layer representations** of audio data from Wav2Vec 2.0 with **EEG-derived neural features** from EEGPT.
+
+### **1️⃣ Speech Feature Extraction**
+We extract **layer-wise embeddings** from **Wav2Vec 2.0** to capture:
+- **Acoustic features (low-layer)**
+- **Phonetic features (mid-layer)**
+- **Semantic features (high-layer)**
+
+Feature selection is optimized using **Bayesian Gaussian Mixture Models (GMMs)**.
+
+### **2️⃣ EEG Feature Extraction**
+EEG signals are processed using:
+- **Bayesian Gaussian Processes (GPs)** for denoising & feature selection.
+- **Bayesian Hidden Markov Models (HMMs)** for temporal EEG pattern recognition.
+
+### **3️⃣ Multimodal Fusion**
+A **Bayesian Cross-Modal Attention Layer** aligns EEG and speech features in a shared **latent space**, optimizing classification.
+
+### **4️⃣ Classification**
+A **Bayesian Neural Network (BNN)** is used as the final classifier, leveraging **variational inference** for **uncertainty estimation**.
+
+---
+
+## 📊 **Model Architecture**
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class BayesianNN(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super(BayesianNN, self).__init__()
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc2 = nn.Linear(hidden_dim, output_dim)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        return torch.sigmoid(self.fc2(x))
+
+We use Wav2Vec 2.0 Base for speech feature extraction and EEGPT for EEG-based modeling.
+
+🔗 Wav2Vec 2.0 Pretrained Model
+🔗 EEGPT Pretrained Model
+
+📂 Datasets
+We utilize real-world EEG and speech datasets relevant to mental health and emotion analysis:
+
+🗣️ Speech Dataset
+📌 Dataset: Emotions and Heart Rate Scale Classification
+
+Contains 6,000+ speech samples labeled with emotional states (e.g., sadness, happiness, neutral).
+Helps correlate emotions with depressive symptoms.
+🧠 EEG Dataset
+📌 Dataset: EEG Dataset (SamNikolas - Kaggle)
+
+Contains multi-channel EEG recordings.
+Enables Bayesian EEG feature extraction and uncertainty modeling.
