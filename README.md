@@ -111,7 +111,7 @@ Subgroup embeddings are computed for each recording group and later fused using 
 
 ### **2️⃣ Bayesian Logistic Regression (BLR) - Sam**
 
-This section describes our Bayesian model for depression classification using fused speech embeddings. The model is built in two main parts: **Attention Fusion** (to combine subgroup embeddings) and **Bayesian Logistic Regression** (to classify the fused embeddings). In addition, we perform posterior predictive checks on the training set and uncertainty quantification on the test set.
+This section describes our Bayesian model for depression classification using fused speech embeddings. The model is built in two main parts: **Attention Fusion** (to combine subgroup embeddings) and **Bayesian Logistic Regression** (to classify the fused embeddings). In addition, we perform posterior predictive checks on the training data and uncertainty quantification on the test data.
 
 ---
 
@@ -120,55 +120,54 @@ This section describes our Bayesian model for depression classification using fu
 ##### Attention Fusion
 
 - **Latent Attention Weights:**  
-  For each training subject, we assign latent attention weights over the \( N \) subgroups using a Dirichlet prior. That is, for subject \( i \) (with \( i=1,\dots,M \)):
-  \[
+  For each training subject \( i \) (with \( i=1,\dots,M \)), we assign latent attention weights over the \( N \) subgroups using a Dirichlet prior:
+  $$
   \boldsymbol{\alpha}_i = (\alpha_{i1}, \dots, \alpha_{iN}) \sim \operatorname{Dirichlet}(\mathbf{1})
-  \]
+  $$
   where \(\mathbf{1}\) is an \(N\)-dimensional vector of ones.
 
 - **Fused Embedding Computation:**  
   The fused embedding for each subject is computed as a weighted sum of the subgroup embeddings:
-  \[
+  $$
   \tilde{\mathbf{x}}_i = \sum_{j=1}^{N} \alpha_{ij}\,\mathbf{x}_{ij}
-  \]
-  where \(\mathbf{x}_{ij} \in \mathbb{R}^d\) is the embedding for subgroup \(j\) of subject \(i\).
+  $$
+  Here, \(\mathbf{x}_{ij} \in \mathbb{R}^d\) is the embedding for subgroup \(j\) of subject \(i\).
 
-##### Bayesian Logistic Regression
+#### Bayesian Logistic Regression
 
 - **Model Specification:**
   - **Priors:**  
-    \[
-    \beta \sim \mathcal{N}(\mathbf{0}, \mathbf{I}), \quad b \sim \mathcal{N}(0, 1)
-    \]
+    $$
+    \beta \sim \mathcal{N}(\mathbf{0}, \mathbf{I}) \quad \text{and} \quad b \sim \mathcal{N}(0, 1)
+    $$
   - **Linear Predictor:**  
-    \[
+    $$
     z_i = \beta^\top \tilde{\mathbf{x}}_i + b
-    \]
+    $$
   - **Probability Transformation:**  
-    \[
+    $$
     \theta_i = \sigma(z_i) = \frac{1}{1+\exp(-z_i)}
-    \]
+    $$
   - **Likelihood:**  
-    \[
+    $$
     y_i \sim \operatorname{Bernoulli}(\theta_i)
-    \]
-  
-The model jointly infers the attention weights \(\boldsymbol{\alpha}_i\) and the logistic regression parameters (\(\beta\) and \(b\)), providing both point predictions and uncertainty estimates for each subject.
+    $$
+
+The model jointly infers the latent attention weights \(\boldsymbol{\alpha}_i\) and the logistic regression parameters (\(\beta\) and \(b\)), providing both point predictions and uncertainty estimates for each subject.
 
 ---
 
 #### Posterior Predictive Checks on Training Data
 
-- **Purpose:**  
-  To visually assess whether the model's predicted probabilities resemble the distribution of the observed data.
+- **Objective:**  
+  To visually assess whether the model’s predicted probabilities resemble the distribution of the observed data.
 
-- **Process:**  
-  - Generate posterior predictive samples (i.e., simulated values of \(\theta_i\)) for the training set.
-  - Plot histograms and density plots of the predicted probabilities.
-  
-*Example Visualizations:*
-- **Histogram of Predicted Probabilities:** Helps verify that the distribution of predictions covers the range of possible values.
-- **Density Plot by Class:** Overlays the predicted probability distributions for subjects with \(y_i = 1\) (MDD) and \(y_i = 0\) (healthy controls) to evaluate class separation.
+- **Steps:**
+  - Generate posterior predictive samples for the training set (simulated values of \(\theta_i\)).
+  - Compute the average predicted probability for each subject.
+  - Visualize the distribution using:
+    - **Histogram:** To see the overall distribution of predicted probabilities.
+    - **Density Plot by Class:** To compare the distribution of predictions for subjects with \(y_i = 1\) (MDD) and \(y_i = 0\) (healthy controls).
 
 ---
 
@@ -177,37 +176,37 @@ The model jointly infers the attention weights \(\boldsymbol{\alpha}_i\) and the
 ##### Fused Embeddings on Test Data
 
 - **Approach:**  
-  Since the model is trained on the training set, we use the global mean of the training attention weights to compute fused embeddings for test subjects. This gives a consistent representation of the test data:
-  \[
+  Since the model is trained on the training data, we use the global mean of the training attention weights to compute fused embeddings for test subjects. This is given by:
+  $$
   \tilde{\mathbf{x}}^{\text{test}}_i = \sum_{j=1}^{N} \bar{\alpha}_{j}\,\mathbf{x}^{\text{test}}_{ij}
-  \]
+  $$
   where \(\bar{\alpha}_{j}\) is the average attention weight over the training subjects for subgroup \(j\).
 
 ##### Prediction and Uncertainty
 
 - **Posterior Sampling:**  
-  We sample posterior values for \(\beta\) and \(b\) from our training model.
-  
+  We sample posterior values for \(\beta\) and \(b\) from the training model.
+
 - **Prediction:**  
-  For each test subject, we compute the fused embedding and then the predicted probability:
-  \[
+  For each test subject, the fused embedding is computed and the logistic regression model produces a predicted probability:
+  $$
   z_i^{\text{test}} = \beta^\top \tilde{\mathbf{x}}^{\text{test}}_i + b, \quad \theta_i^{\text{test}} = \sigma(z_i^{\text{test}})
-  \]
+  $$
   
 - **Uncertainty Quantification:**  
-  By drawing multiple posterior samples and computing predictions, we obtain a distribution of predicted probabilities for each test subject. The standard deviation of this distribution reflects the uncertainty in the prediction.
+  By drawing multiple posterior samples and computing the predicted probability for each test subject, we obtain a distribution for each prediction. The standard deviation of this distribution indicates the uncertainty in the model's prediction.
 
 ##### Model Evaluation
 
 - **Metrics on Test Data:**  
-  We evaluate the model using:
-  - **Accuracy**
-  - **AUC-ROC**
-  - **Precision, Recall, and F1-Score**
-  - **Brier Score**
+  We evaluate the model's performance using:
+  - Accuracy
+  - AUC-ROC
+  - Precision, Recall, and F1-Score
+  - Brier Score
   
 - **Calibration:**  
-  A calibration curve is plotted to assess if the predicted probabilities are well-calibrated (i.e., when the model predicts 70% probability, the true frequency of MDD is close to 70%).
+  A calibration curve is plotted to assess whether the predicted probabilities are well-calibrated. For instance, if the model predicts a probability of 0.70, the observed frequency of MDD should be close to 70%.
 
 ---
 
