@@ -243,3 +243,13 @@ Bayesian Neural Networks (BNN) were trained, and we optimized the **decision thr
 ![Precision-Recall Curve](path/to/your_image2.png)
 
 ---
+
+## 🚀 **Final Recommendation:**
+- GPC is highly accurate but may need validation to check for overfitting.
+- BNN provides more control with optimized threshold tuning.
+- BLR helps in understanding which features are important.
+
+## 📌 **Future Work**
+- 🔹 EEG Feature Integration: Expand the model to incorporate brainwave activity.
+- 🔹 Hybrid Bayesian Models: Combine GPC, BLR, and BNN for multimodal fusion.
+- 🔹 Clinical Validation: Test the framework on real-world depression screening data.
