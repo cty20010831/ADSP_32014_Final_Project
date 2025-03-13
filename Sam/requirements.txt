@@ -1,0 +1,14 @@
+numpy
+pandas
+openpyxl
+scikit-learn
+matplotlib
+librosa
+torch
+torchaudio
+torchvision
+transformers
+pymc
+pytensor
+ipykernel
+ipywidgets
