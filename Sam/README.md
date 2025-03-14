@@ -52,7 +52,6 @@ This section describes our Bayesian model for depression classification using fu
 
 - **Model Specification:**
   - **Priors:**
-    
     ```math
     \beta \sim \mathcal{N}(\mathbf{0}, \mathbf{I}) \quad \text{and} \quad b \sim \mathcal{N}(0, 1)
     ```
@@ -93,7 +92,6 @@ The model jointly infers the latent attention weights $\boldsymbol{\alpha}_i$ an
 
 - **Approach:**  
   Since the model is trained on the training data, we use the global mean of the training attention weights to compute fused embeddings for test subjects. This is given by:
-
   ```math
   \tilde{\mathbf{x}}^{\text{test}}_i = \sum_{j=1}^{N} \bar{\alpha}_{j}\,\mathbf{x}^{\text{test}}_{ij}
   ```
