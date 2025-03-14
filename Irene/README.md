@@ -3,9 +3,9 @@
 **A probabilistic approach for detecting Major Depressive Disorder (MDD) using Bayesian inference with speech and EEG features.**  
 
 ##  **Why This Matters**
-- **Depression affects over 300 million people globally** 🌍  
-- **In the U.S., 21 million adults** suffer from at least one major depressive episode per year.  
-- **Missed diagnoses cost $1 trillion per year** in lost productivity and healthcare costs.  
+- Depression affects over 300 million people worldwide and is the leading cause of disability.
+- In the U.S. alone, 21 million adults experience at least one major depressive episode annually.
+- Missed or late diagnosis leads to suffering and lost productivity—costing the global economy over $1 trillion per year. 
 
 ✅ Our goal is to **improve depression diagnosis with AI**—but in a way that’s **trustworthy and uncertainty-aware**.  
 
