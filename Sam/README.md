@@ -36,9 +36,9 @@ This section describes our Bayesian model for depression classification using fu
 
 - **Latent Attention Weights:**  
   For each training subject $i$ (with $i=1,\dots,M$)), we assign latent attention weights over the $N$ subgroups using a Dirichlet prior:
-  ```math
+  $
   \boldsymbol{\alpha}_i = (\alpha_{i1}, \dots, \alpha_{iN}) \sim \operatorname{Dirichlet}(\mathbf{1})
-  ```
+  $, 
   where $\mathbf{1}$ is an $N$-dimensional vector of ones.
 
 - **Fused Embedding Computation:**  
