@@ -36,9 +36,9 @@ This section describes our Bayesian model for depression classification using fu
 
 - **Latent Attention Weights:**  
   For each training subject $i$ (with $i=1,\dots,M$)), we assign latent attention weights over the $N$ subgroups using a Dirichlet prior:
-  $
+  ```math
   \boldsymbol{\alpha}_i = (\alpha_{i1}, \dots, \alpha_{iN}) \sim \operatorname{Dirichlet}(\mathbf{1})
-  $, 
+  ```
   where $\mathbf{1}$ is an $N$-dimensional vector of ones.
 
 - **Fused Embedding Computation:**  
@@ -51,7 +51,8 @@ This section describes our Bayesian model for depression classification using fu
 #### Bayesian Logistic Regression
 
 - **Model Specification:**
-  - **Priors:**  
+  - **Priors:**
+    
     ```math
     \beta \sim \mathcal{N}(\mathbf{0}, \mathbf{I}) \quad \text{and} \quad b \sim \mathcal{N}(0, 1)
     ```
@@ -92,6 +93,7 @@ The model jointly infers the latent attention weights $\boldsymbol{\alpha}_i$ an
 
 - **Approach:**  
   Since the model is trained on the training data, we use the global mean of the training attention weights to compute fused embeddings for test subjects. This is given by:
+
   ```math
   \tilde{\mathbf{x}}^{\text{test}}_i = \sum_{j=1}^{N} \bar{\alpha}_{j}\,\mathbf{x}^{\text{test}}_{ij}
   ```
