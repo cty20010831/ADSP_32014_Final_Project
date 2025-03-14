@@ -1,11 +1,11 @@
 # ADSP_32014_Final_Project - Bayesian Multimodal Fusion for Depression Classification   
 
 ## 📌 **Overview**
-This project applies **Bayesian Machine Learning** techniques to classify depression using **speech embeddings from Wav2Vec 2.0**. The goal is to **quantify uncertainty** in predictions and enhance model interpretability for **clinical decision-making**.
+This project applies **Bayesian Machine Learning** techniques to classify depression using **speech embeddings from Wav2Vec 2.0** and **features extracted from EEG signals**. The goal is to **quantify uncertainty** in predictions and enhance model interpretability for **clinical decision-making**.
 
 🚀 **Key Bayesian Methods Used:**
-- **Bayesian Gaussian Process Classification (GPC)**
 - **Bayesian Logistic Regression (BLR)**
+- **Bayesian Gaussian Process Classification (GPC)**
 - **Bayesian Neural Networks (BNN)** (with uncertainty-aware predictions)
 
 ---
