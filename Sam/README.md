@@ -35,40 +35,40 @@ This section describes our Bayesian model for depression classification using fu
 ##### Attention Fusion
 
 - **Latent Attention Weights:**  
-  For each training subject \( i \) (with \( i=1,\dots,M \)), we assign latent attention weights over the \( N \) subgroups using a Dirichlet prior:
-  $$
+  For each training subject $i$ (with $i=1,\dots,M$)), we assign latent attention weights over the $N$ subgroups using a Dirichlet prior:
+  ```math
   \boldsymbol{\alpha}_i = (\alpha_{i1}, \dots, \alpha_{iN}) \sim \operatorname{Dirichlet}(\mathbf{1})
-  $$
-  where \(\mathbf{1}\) is an \(N\)-dimensional vector of ones.
+  ```
+  where $\mathbf{1}$ is an $N$-dimensional vector of ones.
 
 - **Fused Embedding Computation:**  
   The fused embedding for each subject is computed as a weighted sum of the subgroup embeddings:
-  $$
+  ```math
   \tilde{\mathbf{x}}_i = \sum_{j=1}^{N} \alpha_{ij}\,\mathbf{x}_{ij}
-  $$
-  Here, \(\mathbf{x}_{ij} \in \mathbb{R}^d\) is the embedding for subgroup \(j\) of subject \(i\).
+  ```
+  Here, $\mathbf{x}_{ij} \in \mathbb{R}^d$ is the embedding for subgroup $j$ of subject $i$.
 
 #### Bayesian Logistic Regression
 
 - **Model Specification:**
   - **Priors:**  
-    $$
+    ```math
     \beta \sim \mathcal{N}(\mathbf{0}, \mathbf{I}) \quad \text{and} \quad b \sim \mathcal{N}(0, 1)
-    $$
+    ```
   - **Linear Predictor:**  
-    $$
+    ```math
     z_i = \beta^\top \tilde{\mathbf{x}}_i + b
-    $$
+    ```
   - **Probability Transformation:**  
-    $$
+    ```math
     \theta_i = \sigma(z_i) = \frac{1}{1+\exp(-z_i)}
-    $$
+    ```
   - **Likelihood:**  
-    $$
+    ```math
     y_i \sim \operatorname{Bernoulli}(\theta_i)
-    $$
+    ```
 
-The model jointly infers the latent attention weights \(\boldsymbol{\alpha}_i\) and the logistic regression parameters (\(\beta\) and \(b\)), providing both point predictions and uncertainty estimates for each subject.
+The model jointly infers the latent attention weights $\boldsymbol{\alpha}_i$ and the logistic regression parameters ($\beta$ and $b$), providing both point predictions and uncertainty estimates for each subject.
 
 ---
 
@@ -78,11 +78,11 @@ The model jointly infers the latent attention weights \(\boldsymbol{\alpha}_i\) 
   To visually assess whether the model’s predicted probabilities resemble the distribution of the observed data.
 
 - **Steps:**
-  - Generate posterior predictive samples for the training set (simulated values of \(\theta_i\)).
+  - Generate posterior predictive samples for the training set (simulated values of $\theta_i$).
   - Compute the average predicted probability for each subject.
   - Visualize the distribution using:
     - **Histogram:** To see the overall distribution of predicted probabilities.
-    - **Density Plot by Class:** To compare the distribution of predictions for subjects with \(y_i = 1\) (MDD) and \(y_i = 0\) (healthy controls).
+    - **Density Plot by Class:** To compare the distribution of predictions for subjects with $y_i = 1$ (MDD) and $y_i = 0$ (healthy controls).
 
 ---
 
@@ -92,8 +92,10 @@ The model jointly infers the latent attention weights \(\boldsymbol{\alpha}_i\) 
 
 - **Approach:**  
   Since the model is trained on the training data, we use the global mean of the training attention weights to compute fused embeddings for test subjects. This is given by:
-  $$\tilde{\mathbf{x}}^{\text{test}}_i = \sum_{j=1}^{N} \bar{\alpha}_{j}\,\mathbf{x}^{\text{test}}_{ij}$$
-  where \(\bar{\alpha}_{j}\) is the average attention weight over the training subjects for subgroup \(j\).
+  ```math
+  \tilde{\mathbf{x}}^{\text{test}}_i = \sum_{j=1}^{N} \bar{\alpha}_{j}\,\mathbf{x}^{\text{test}}_{ij}
+  ```
+  where $\bar{\alpha}_{j}$ is the average attention weight over the training subjects for subgroup $j$.
 
 ##### Prediction and Uncertainty
 
@@ -111,15 +113,15 @@ The model jointly infers the latent attention weights \(\boldsymbol{\alpha}_i\) 
 
 ##### Model Evaluation
 
+- **Calibration:**  
+  A calibration curve is plotted to assess whether the predicted probabilities are well-calibrated. For instance, if the model predicts a probability of 0.70, the observed frequency of MDD should be close to 70%.
+
 - **Metrics on Test Data:**  
   We evaluate the model's performance using:
   - Accuracy
   - AUC-ROC
   - Precision, Recall, and F1-Score
   - Brier Score
-  
-- **Calibration:**  
-  A calibration curve is plotted to assess whether the predicted probabilities are well-calibrated. For instance, if the model predicts a probability of 0.70, the observed frequency of MDD should be close to 70%.
 
 ---
 
