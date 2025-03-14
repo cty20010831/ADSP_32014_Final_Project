@@ -2,10 +2,13 @@
 [![Bayesian Machine Learning](https://img.shields.io/badge/Bayesian-Machine_Learning-blue)](https://github.com/yourrepo)  
 **A probabilistic approach for detecting Major Depressive Disorder (MDD) using Bayesian inference with speech and EEG features.**  
 
-##  **Why Does This Matter?**
-- Depression affects over 300 million people worldwide and is the leading cause of disability.
-- In the U.S. alone, 21 million adults experience at least one major depressive episode each year.
-- Missed or delayed diagnosis leads to unnecessary suffering and costs the global economy over $1 trillion per year.
+##  **Why This Matters**
+- **Depression affects over 300 million people globally** 🌍  
+- **In the U.S., 21 million adults** suffer from at least one major depressive episode per year.  
+- **Missed diagnoses cost $1 trillion per year** in lost productivity and healthcare costs.  
+
+✅ Our goal is to **improve depression diagnosis with AI**—but in a way that’s **trustworthy and uncertainty-aware**.  
+
 
 ## 📌 **Overview**
 This project applies **Bayesian Machine Learning** techniques to classify depression using **speech embeddings from Wav2Vec 2.0** and **EEG-based neural activity features**. The goal is to **quantify uncertainty** in predictions and enhance model interpretability for **clinical decision-making**.
@@ -115,17 +118,48 @@ We didn’t just test one model—we tried three different **Bayesian approaches
 - **BNN (with KL Weight Annealing)** helped improve prediction stability.  
 - **Optimizing the threshold (0.65)** helped balance **precision vs. recall** better.  
 
+## 🔍 **How Bayesian Machine Learning Works**
+Bayesian Machine Learning is different from traditional deep learning because it **doesn't just predict a label—it predicts a probability distribution** over possible outcomes. This makes it ideal for **uncertainty-aware AI in clinical applications** like depression diagnosis.
+
+### 📌 **Key Bayesian Concepts Used in This Project**
+1️⃣ **Bayesian Priors: Adding Knowledge Before Seeing Data**
+   - In Bayesian models, we set **priors** (initial beliefs) before seeing any data.
+   - Example: In **Bayesian Logistic Regression (BLR)**, we assume model weights follow a **Normal(0,1)** distribution to prevent overfitting.
+
+2️⃣ **Posterior Distribution: Learning from Data**
+   - After seeing data, Bayesian inference **updates our beliefs** to get the **posterior distribution**.
+   - This is done using methods like **Variational Inference (VI)** or **Markov Chain Monte Carlo (MCMC)**.
+
+3️⃣ **Uncertainty Quantification: Why It Matters**
+   - Unlike traditional models that just output **"Depressed" or "Not Depressed"**, Bayesian models also tell us **how confident** they are.
+   - This is **crucial for healthcare AI** because it helps doctors **interpret ambiguous cases** instead of blindly trusting an AI.
+
+### 🤖 **Different Bayesian Methods We Used**
+| **Model** | **How It Works** | **Best Use Case** |
+|-----------|----------------|------------------|
+| **Gaussian Process Classifier (GPC)** | Uses a kernel function to model uncertainty. | Works well for small datasets, but may overfit. |
+| **Bayesian Logistic Regression (BLR)** | Uses Bayesian priors to estimate probabilities. | Helps understand which features matter most. |
+| **Bayesian Neural Network (BNN)** | Adds uncertainty to deep learning by training weight distributions instead of single values. | Great for complex, high-dimensional data like speech + EEG. |
+
+### 🛠 **Special Techniques We Used**
+🔹 **KL Weight Annealing** (in BNN): Prevents the model from converging too early to a bad solution.  
+🔹 **Threshold Optimization**: We experimented with different decision thresholds to balance **precision** and **recall**.  
+🔹 **Variational Inference (VI)**: Faster alternative to **MCMC** for training Bayesian models efficiently.
+
+---
 
 ## 🚀 **Final Recommendation:**
-
 - BNN + Threshold 0.65 provides the best trade-off between precision and recall.
 - GPC is highly accurate but may need validation to check for overfitting.
 - BLR helps in understanding feature importance.
+
 
 ## 📌 **Future Work**
 - 🔹 EEG Feature Integration Improvements 🧠
 - 🔹 Hybrid Bayesian Models: Combine GPC, BLR, and BNN for multimodal fusion.
 - 🔹 Clinical Validation: Test the framework on real-world depression screening data.
+- 🔹 Improve BNN by adding **better priors** and testing **Hybrid Bayesian Models**!
+
 
 ## 📜 **Citations**
 
