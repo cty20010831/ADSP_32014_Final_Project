@@ -12,10 +12,11 @@ This project applies **Bayesian Machine Learning** techniques to classify depres
 
 ## 🎯 **Motivation**
 Major Depressive Disorder (MDD) is often **underdiagnosed** due to subjective assessments.  
+
 🔹 **Why Bayesian Learning?** It provides:
-✅ **Uncertainty estimation** (crucial for clinical AI)  
-✅ **Better generalization** over small datasets  
-✅ **Robustness to noise** in speech data  
+ - ✅ **Uncertainty estimation** (crucial for clinical AI)  
+ - ✅ **Better generalization** over small datasets  
+ - ✅ **Robustness to noise** in speech data  
 
 ---
 
