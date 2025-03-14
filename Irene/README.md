@@ -100,13 +100,21 @@ with pm.Model() as bnn_model:
 ```
 
 ## 📈 **Results Summary**
+We didn’t just test one model—we tried three different **Bayesian approaches** to find the best method for detecting depression.  
 
-| **Model**                 | **Accuracy** | **Uncertainty Estimation**                  |
-|---------------------------|-------------|---------------------------------------------|
-| **GPC**                   | **94.12%**  | ✅ Strong uncertainty quantification       |
-| **BLR**                   | **TBD**     | ✅ Provides feature importance             |
-| **BNN (Threshold 0.50)**   | **55.19%**  | ✅ KL Weight Annealing added               |
-| **BNN (Threshold 0.65)**   | **65.00%**  | ✅ Best Precision-Recall Balance          |
+| **Model** | **Accuracy** | **Key Benefit** |
+|-----------|------------|----------------|
+| **Gaussian Process Classifier (GPC)** | **94.12%** | ✅ Very confident predictions, but might overfit |
+| **Bayesian Logistic Regression (BLR)** | **TBD** | ✅ Helps understand which features matter most |
+| **Bayesian Neural Network (BNN - Threshold 0.50)** | **55.19%** | ✅ Uses KL Weight Annealing for uncertainty control |
+| **BNN (Threshold 0.65)** | **65.00%** | ✅ Best balance between detecting depression and avoiding false alarms |
+
+🚀 **What we learned:**  
+- **GPC** gives highly confident predictions but might overfit.  
+- **BLR** is great for understanding feature importance.  
+- **BNN (with KL Weight Annealing)** helped improve prediction stability.  
+- **Optimizing the threshold (0.65)** helped balance **precision vs. recall** better.  
+
 
 ## 🚀 **Final Recommendation:**
 
