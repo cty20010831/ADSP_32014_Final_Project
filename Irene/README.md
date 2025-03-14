@@ -2,6 +2,11 @@
 [![Bayesian Machine Learning](https://img.shields.io/badge/Bayesian-Machine_Learning-blue)](https://github.com/yourrepo)  
 **A probabilistic approach for detecting Major Depressive Disorder (MDD) using Bayesian inference with speech and EEG features.**  
 
+##  **Why Does This Matter?**
+- Depression affects over 300 million people worldwide and is the leading cause of disability.
+- In the U.S. alone, 21 million adults experience at least one major depressive episode each year.
+- Missed or delayed diagnosis leads to unnecessary suffering and costs the global economy over $1 trillion per year.
+
 ## 📌 **Overview**
 This project applies **Bayesian Machine Learning** techniques to classify depression using **speech embeddings from Wav2Vec 2.0** and **EEG-based neural activity features**. The goal is to **quantify uncertainty** in predictions and enhance model interpretability for **clinical decision-making**.
 
@@ -119,4 +124,7 @@ with pm.Model() as bnn_model:
 - Wav2Vec 2.0: https://arxiv.org/abs/2006.11477
 - EEGPT: https://openreview.net/forum?id=lvS2b8CjG5
 - EEG Dataset: https://www.nature.com/articles/s41597-022-01211-x
+- Global Prevalence of Depression: The World Health Organization (WHO) reports that depression affects more than 300 million people worldwide and is the leading cause of disability. ​
+- Prevalence in the United States: In the United States, approximately 8.4% of adults, equating to 21 million individuals, experience at least one major depressive episode annually. ​(en.wikipedia.org)
+- Economic Impact: Depression and anxiety disorders result in the loss of approximately 12 billion working days each year, costing the global economy over $1 trillion annually. 
 
